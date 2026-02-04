@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpharia - Sign In</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 480px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .auth-card {
+            padding: 2rem;
+        }
+
+        .auth-card-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .auth-card-header h2 {
+            color: #111827;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-card-header p {
+            color: #6b7280;
+            font-size: 0.9375rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            color: #374151;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .forgot-password {
+            color: #4f46e5;
+            font-size: 0.75rem;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 3rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 0.9375rem;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #a5b4fc;
+            box-shadow: 0 0 0 3px rgba(165, 180, 252, 0.2);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.875rem 1.5rem;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+
+        .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-outline {
+            background: white;
+            border: 1px solid #e5e7eb;
+            color: #374151;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            color: #9ca3af;
+            font-size: 0.875rem;
+            margin: 1.5rem 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e5e7eb;
+        }
+
+        .divider span {
+            padding: 0 1rem;
+        }
+
+        .social-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            background: white;
+            color: #374151;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .social-btn:hover {
+            background-color: #f9fafb;
+            border-color: #d1d5db;
+        }
+
+        .social-btn img {
+            width: 18px;
+            height: 18px;
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .auth-footer a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Error message */
+        .error-message {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .form-group.error .form-input {
+            border-color: #ef4444;
+        }
+
+        /* Success message */
+        .success-message {
+            background-color: #ecfdf5;
+            color: #065f46;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: none;
+            font-size: 0.875rem;
+        }
+
+        /* Loading overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            flex-direction: column;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e5e7eb;
+            border-top: 4px solid #4f46e5;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+
+        .loading-text {
+            color: #4b5563;
+            font-weight: 500;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body class="auth-page">
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Signing in...</div>
+    </div>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <!-- Header -->
+            <div class="auth-card-header">
+                <h2>Welcome Back</h2>
+                <p>Sign in to continue to Alpharia</p>
+            </div>
+
+            <!-- Error Message -->
+            <div id="error-message" class="error-message"></div>
+
+            <!-- Success Message -->
+            <div id="success-message" class="success-message">
+                <i class="fas fa-check-circle"></i> Sign in successful! Redirecting...
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form">
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="email" class="form-input" placeholder="Enter your email" required>
+                    </div>
+                    <div id="email-error" class="error-message"></div>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <div class="form-label-row">
+                        <label for="password" class="form-label">Password</label>
+                        <a href="forgot-password.html" class="forgot-password">Forgot password?</a>
+                    </div>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="password" class="form-input" placeholder="Enter your password"
+                            required minlength="6">
+                        <button type="button" class="toggle-password" data-target="password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div id="password-error" class="error-message"></div>
+                </div>
+
+                <!-- Remember Me -->
+                <div class="form-group" style="margin-top: -0.5rem;">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="remember-me">
+                        <span class="checkmark"></span>
+                        <span>Remember me</span>
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn" id="login-button">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Sign In
+                </button>
+
+                <!-- Divider -->
+                <div class="divider">
+                    <span>Or continue with</span>
+                </div>
+
+                <!-- Social Buttons -->
+                <div class="social-buttons">
+                    <button type="button" class="social-btn" id="google-login">
+                        <img src="https://www.google.com/favicon.ico" alt="Google">
+                        Google
+                    </button>
+                    <button type="button" class="social-btn" id="microsoft-login">
+                        <img src="https://www.microsoft.com/favicon.ico" alt="Microsoft">
+                        Microsoft
+                    </button>
+                </div>
+            </form>
+
+            <!-- Footer -->
+            <div class="auth-footer">
+                <p>Don't have an account? <a href="signup-fixed.html">Sign up</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import Firebase functions
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+        import {
+            getAuth,
+            signInWithEmailAndPassword,
+            GoogleAuthProvider,
+            signInWithPopup,
+            onAuthStateChanged,
+            signInWithRedirect,
+            getRedirectResult
+        } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
+        import {
+            getFirestore,
+            doc,
+            getDoc,
+            setDoc
+        } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAtOedXLBC4eigzqmBpYFciN-W5Mi2Cpmc",
+            authDomain: "alpharia-c6a39.firebaseapp.com",
+            projectId: "alpharia-c6a39",
+            storageBucket: "alpharia-c6a39.firebasestorage.app",
+            messagingSenderId: "85322759772",
+            appId: "1:85322759772:web:d5c7a528fd61c9d2373099",
+            measurementId: "G-KEC7MGMVE8"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const googleProvider = new GoogleAuthProvider();
+
+        // DOM Elements
+        const loginForm = document.getElementById('login-form');
+        const googleLoginButton = document.getElementById('google-login');
+        const microsoftLoginButton = document.getElementById('microsoft-login');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const errorMessage = document.getElementById('error-message');
+        const successMessage = document.getElementById('success-message');
+
+        // Show loading overlay
+        function showLoading() {
+            loadingOverlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Hide loading overlay
+        function hideLoading() {
+            loadingOverlay.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Show error message
+        function showError(inputId, message) {
+            const input = document.getElementById(inputId);
+            const errorElement = document.getElementById(`${inputId}-error`);
+
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+
+            if (input) {
+                input.classList.add('error');
+            }
+
+            // Also show in the main error message area
+            if (message && errorMessage) {
+                errorMessage.textContent = message;
+                errorMessage.style.display = 'block';
+
+                // Hide success message if it's visible
+                if (successMessage) {
+                    successMessage.style.display = 'none';
+                }
+            }
+        }
+
+        // Clear error message
+        function clearError(inputId) {
+            const input = document.getElementById(inputId);
+            const errorElement = document.getElementById(`${inputId}-error`);
+
+            if (errorElement) {
+                errorElement.textContent = '';
+                errorElement.style.display = 'none';
+            }
+
+            if (input) {
+                input.classList.remove('error');
+            }
+        }
+
+        // Toggle password visibility
+        function setupPasswordToggle(button) {
+            button.addEventListener('click', function () {
+                const targetId = this.getAttribute('data-target');
+                const passwordInput = document.getElementById(targetId);
+                const icon = this.querySelector('i');
+
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
+        }
+
+        // Validate email format
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+        // Helper function to determine user role
+        function getUserRole(userData) {
+            console.log('getUserRole - Raw user data:', JSON.stringify(userData, null, 2));
+
+            if (!userData) {
+                console.log('getUserRole - No user data provided');
+                return { isAdmin: false, isTeacher: false };
+            }
+
+            const isAdmin = (userData.role === 'ADMIN' ||
+                userData.role === 'SUPER_ADMIN' ||
+                userData.userType === 'admin' ||
+                userData.userType === 'super_admin');
+
+            const isTeacher = (userData.role === 'TEACHER' ||
+                userData.role === 'LIMITED_TEACHER' ||
+                userData.userType === 'teacher' ||
+                userData.permissions?.role === 'LIMITED_TEACHER');
+
+            console.log('getUserRole - Role check results:', {
+                isAdmin,
+                isTeacher,
+                role: userData.role,
+                userType: userData.userType,
+                permissions: userData.permissions
+            });
+
+            return { isAdmin, isTeacher };
+        }
+
+        // Redirect user based on role
+        function redirectUser(userData) {
+            // Show user data in an alert before any redirection
+            alert('User Data:\n' + JSON.stringify(userData, null, 2));
+
+            const { isAdmin, isTeacher } = getUserRole(userData);
+
+            console.log('User role check:', { isAdmin, isTeacher, userType: userData?.userType });
+
+            let redirectPath = '../student-dashboard.html';
+            let role = 'Student';
+
+            if (isAdmin) {
+                console.log('User is admin');
+                redirectPath = '../admin-dashboard.html';
+                role = 'Admin';
+            } else if (isTeacher) {
+                console.log('User is teacher');
+                redirectPath = '../teacher-dashboard.html';
+                role = 'Teacher';
+            }
+
+            // Show final redirect info
+            alert(`Redirecting to: ${redirectPath}\nRole: ${role}\nUser Type: ${userData?.userType || 'undefined'}`);
+
+            // Show debug info and add manual redirect button
+            const debugInfo = document.createElement('div');
+            debugInfo.style.padding = '20px';
+            debugInfo.style.margin = '20px 0';
+            debugInfo.style.border = '1px solid #ccc';
+            debugInfo.style.borderRadius = '5px';
+            debugInfo.style.backgroundColor = '#f8f9fa';
+
+            debugInfo.innerHTML = `
+                <h3>Debug Information (Will not appear in production)</h3>
+                <p><strong>Detected Role:</strong> ${role}</p>
+                <p><strong>Redirect Path:</strong> ${redirectPath}</p>
+                <p><strong>User Data:</strong></p>
+                <pre style="background: #fff; padding: 10px; border: 1px solid #ddd; border-radius: 4px; overflow: auto;">${JSON.stringify(userData, null, 2)}</pre>
+                <button id="manual-redirect" style="padding: 10px 20px; background: #4f46e5; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px;">
+                    Continue to ${role} Dashboard
+                </button>
+            `;
+
+            // Clear any existing debug info
+            const existingDebug = document.getElementById('debug-info');
+            if (existingDebug) {
+                existingDebug.remove();
+            }
+
+            debugInfo.id = 'debug-info';
+            document.body.appendChild(debugInfo);
+
+            // Add click handler for manual redirect
+            document.getElementById('manual-redirect').addEventListener('click', () => {
+                window.location.href = redirectPath;
+            });
+
+            // Auto-redirect after 1 minute (for testing purposes)
+            setTimeout(() => {
+                window.location.href = redirectPath;
+            }, 60000);
+        }
+
+        // Show success message
+        function showSuccessMessage() {
+            const successMsg = document.getElementById('success-message');
+            if (successMsg) {
+                successMsg.style.display = 'block';
+            }
+        }
+
+        // Handle successful authentication
+        async function handleSuccessfulAuth(user) {
+            try {
+                console.log('handleSuccessfulAuth - User UID:', user.uid);
+
+                // Get user document from Firestore
+                const userDoc = await getDoc(doc(db, 'users', user.uid));
+
+                if (!userDoc.exists()) {
+                    console.error('No user data found in Firestore for UID:', user.uid);
+                    throw new Error('No user data found');
+                }
+
+                const userData = userDoc.data();
+                console.log('Full user data from Firestore:', userData);
+
+                // Debug: Show all user data fields
+                console.log('User data fields:', Object.keys(userData).join(', '));
+
+                // Add a delay to prevent immediate redirect
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                // Show success message
+                showSuccessMessage();
+
+                // Debug: Check if we have role information
+                if (!userData.role && !userData.userType) {
+                    console.warn('No role or userType found in user data');
+                } else {
+                    console.log('User role info:', {
+                        role: userData.role,
+                        userType: userData.userType,
+                        permissions: userData.permissions
+                    });
+                }
+
+                // Redirect based on role
+                redirectUser(userData);
+
+            } catch (error) {
+                console.error('Error in handleSuccessfulAuth:', error);
+                showError('form', 'Error loading user data. Please try again.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Handle form submission
+        async function handleLogin(e) {
+            e.preventDefault();
+
+            // Get form values
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            // Validate form
+            let isValid = true;
+
+            // Validate email
+            if (!email) {
+                showError('email', 'Email is required');
+                isValid = false;
+            } else if (!validateEmail(email)) {
+                showError('email', 'Please enter a valid email address');
+                isValid = false;
+            } else {
+                clearError('email');
+            }
+
+            // Validate password
+            if (!password) {
+                showError('password', 'Password is required');
+                isValid = false;
+            } else if (password.length < 6) {
+                showError('password', 'Password must be at least 6 characters');
+                isValid = false;
+            } else {
+                clearError('password');
+            }
+
+            if (!isValid) return;
+
+            // Show loading state
+            showLoading();
+
+            try {
+                // Sign in with email and password
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                await handleSuccessfulAuth(userCredential.user);
+
+            } catch (error) {
+                console.error('Login error:', error);
+
+                // Handle different error cases
+                let errorMessage = 'An error occurred during login. Please try again.';
+
+                switch (error.code) {
+                    case 'auth/user-not-found':
+                    case 'auth/wrong-password':
+                        errorMessage = 'Invalid email or password.';
+                        break;
+                    case 'auth/too-many-requests':
+                        errorMessage = 'Too many failed login attempts. Please try again later.';
+                        break;
+                    case 'auth/user-disabled':
+                        errorMessage = 'This account has been disabled. Please contact support.';
+                        break;
+                }
+
+                showError('form', errorMessage);
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Handle Google login
+        async function handleGoogleLogin() {
+            try {
+                showLoading();
+                const result = await signInWithPopup(auth, googleProvider);
+                const user = result.user;
+
+                // Check if this is a new user
+                const isNewUser = result._tokenResponse.isNewUser;
+
+                if (isNewUser) {
+                    // Create user profile in Firestore
+                    const userData = {
+                        uid: user.uid,
+                        name: user.displayName || 'User',
+                        email: user.email,
+                        userType: 'student', // Default to student for Google login
+                        photoURL: user.photoURL,
+                        emailVerified: user.emailVerified,
+                        createdAt: new Date().toISOString(),
+                        points: 0,
+                        level: 1
+                    };
+
+                    // Create user document
+                    await setDoc(doc(db, 'users', user.uid), userData);
+
+                    // Create student document by default
+                    await setDoc(doc(db, 'students', user.uid), userData);
+
+                    // Redirect to student dashboard for new users
+                    console.log('New Google user created, redirecting to student dashboard');
+                    window.location.href = '../student-dashboard.html';
+                } else {
+                    // User exists, redirect based on role
+                    const userDoc = await getDoc(doc(db, 'users', user.uid));
+                    if (!userDoc.exists()) {
+                        throw new Error('User data not found');
+                    }
+
+                    const userData = userDoc.data();
+                    console.log('Google login - User data:', userData);
+
+                    // Use the same redirect logic as in handleSuccessfulAuth
+                    const { isAdmin, isTeacher } = getUserRole(userData);
+
+                    // Check for redirect URL in query parameters
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const redirectUrl = urlParams.get('redirect');
+
+                    if (redirectUrl) {
+                        // If there's a redirect URL, use it
+                        console.log('Redirecting to specified URL:', redirectUrl);
+                        window.location.href = redirectUrl.includes('..') ? redirectUrl : `../${redirectUrl}`;
+                    } else if (isAdmin) {
+                        console.log('Google login: Redirecting to admin dashboard');
+                        window.location.href = '../admin-dashboard.html';
+                    } else if (isTeacher) {
+                        console.log('Google login: Redirecting to teacher dashboard');
+                        window.location.href = '../teacher-dashboard.html';
+                    } else {
+                        console.log('Google login: Redirecting to student dashboard');
+                        window.location.href = '../student-dashboard.html';
+                    }
+                }
+
+            } catch (error) {
+                console.error('Google login error:', error);
+                showError(null, 'An error occurred during Google login. Please try again.');
+            } finally {
+                hideLoading();
+            }
+        }
+
+        // Handle Microsoft login (placeholder)
+        function handleMicrosoftLogin() {
+            showError(null, 'Microsoft login will be implemented soon. Please use email or Google to sign in.');
+        }
+
+        // Check if user is already logged in
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in, redirect to dashboard based on role
+                getDoc(doc(db, 'users', user.uid)).then((doc) => {
+                    if (doc.exists()) {
+                        const userData = doc.data();
+                        console.log('Auto-login - User data:', userData);
+
+                        // Use the same redirect logic as in handleSuccessfulAuth
+                        const { isAdmin, isTeacher } = getUserRole(userData);
+
+                        if (isAdmin) {
+                            console.log('Auto-login: Redirecting to admin dashboard');
+                            window.location.href = '../admin-dashboard.html';
+                        } else if (isTeacher) {
+                            console.log('Auto-login: Redirecting to teacher dashboard');
+                            window.location.href = '../teacher-dashboard.html';
+                        } else {
+                            console.log('Auto-login: Redirecting to student dashboard');
+                            window.location.href = '../student-dashboard.html';
+                        }
+                    } else {
+                        console.error('Auto-login: No user data found');
+                    }
+                }).catch(error => {
+                    console.error('Auto-login error:', error);
+                });
+            }
+        });
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function () {
+            // Set up password toggles
+            document.querySelectorAll('.toggle-password').forEach(setupPasswordToggle);
+
+            // Form submission
+            loginForm.addEventListener('submit', handleLogin);
+
+            // Google login
+            if (googleLoginButton) {
+                googleLoginButton.addEventListener('click', handleGoogleLogin);
+            }
+
+            // Microsoft login
+            if (microsoftLoginButton) {
+                microsoftLoginButton.addEventListener('click', handleMicrosoftLogin);
+            }
+
+            // Clear error when typing in inputs
+            document.getElementById('email').addEventListener('input', () => {
+                clearError('email');
+                errorMessage.style.display = 'none';
+            });
+
+            document.getElementById('password').addEventListener('input', () => {
+                clearError('password');
+                errorMessage.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+
+</html>

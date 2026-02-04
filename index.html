@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpharia | Reading Assessment & Literacy Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="landing-screen" class="landing-root">
+        <header class="navbar">
+            <div class="brand">
+                <i class="fas fa-book-reader"></i>
+                <span>Alpharia</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="main-nav" id="main-nav">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#testimonials" class="nav-link">Testimonials</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <div class="nav-actions">
+                    <button id="landing-theme" class="theme-toggle-btn" aria-label="Toggle dark/light mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="primary-btn" id="cta-button">Get Started</button>
+                </div>
+            </nav>
+        </header>
+        <section class="landing-content">
+            <div class="landing-hero">
+                <div class="hero-content">
+                    <span class="hero-badge">
+                        <i class="fas fa-star"></i> Trusted by 500+ Schools
+                    </span>
+                    <h1>Transform Reading Assessment <span class="highlight">with AI</span></h1>
+                    <p class="hero-subtitle">Empower educators with our speech-enabled reading assessment platform. Accurately evaluate students' reading abilities with detailed insights and personalized feedback to guide their progress.</p>
+                    <div class="hero-cta">
+                        <a href="auth/login-fixed.html" class="primary-btn" style="text-decoration: none;">
+                            <span>Get Started</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="#features" class="secondary-btn">
+                            <i class="far fa-play-circle"></i> Watch Demo
+                        </a>
+                    </div>
+
+                </div>
+                <div class="hero-image">
+                    <div class="feature-cards">
+                        <div class="feature-card feature-card-1">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3>Progress Tracking</h3>
+                            <p>Monitor student growth with comprehensive analytics and visual reports that highlight improvements over time.</p>
+                            <div class="feature-wave"></div>
+                        </div>
+                        <div class="feature-card feature-card-2">
+                            <div class="feature-icon">
+                                <i class="fas fa-microphone"></i>
+                            </div>
+                            <h3>Speech Recognition</h3>
+                            <p>Advanced AI technology that accurately evaluates pronunciation, fluency, and reading speed with precision.</p>
+                            <div class="feature-wave"></div>
+                        </div>
+                        <div class="feature-card feature-card-3">
+                            <div class="feature-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <h3>Detailed Reports</h3>
+                            <p>Comprehensive performance reports with actionable insights to guide student development and progress.</p>
+                            <div class="feature-wave"></div>
+                        </div>
+                    </div>
+                    <div class="hero-image-bg">
+                        <div class="pulse-dot dot-1"></div>
+                        <div class="pulse-dot dot-2"></div>
+                        <div class="pulse-dot dot-3"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="auth-card" id="landing-auth-card">
+                <div class="auth-card-header">
+                    <h2>Welcome Back!</h2>
+                    <p>Please sign in to continue</p>
+                    <button class="close-auth" onclick="hideAuthCard()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="student">
+                        <i class="fas fa-user-graduate"></i> Student
+                    </button>
+                    <div class="divider">or</div>
+                    <button class="auth-tab" data-tab="admin">
+                        <i class="fas fa-chalkboard-teacher"></i> Educator
+                    </button>
+                </div>
+                <div class="auth-body">
+                    <div class="auth-panel active" id="auth-student">
+                        <div class="input-group">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="landing-student-name" placeholder="Enter your name" autocomplete="name" />
+                        </div>
+                        <button id="landing-student-start" class="primary-btn full-width">
+                            Start Assessment <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <div class="auth-divider">
+                            <span>or continue with</span>
+                        </div>
+                        <div class="social-auth">
+                            <button class="social-btn google">
+                                <img src="https://www.google.com/favicon.ico" alt="Google">
+                                Google
+                            </button>
+                            <button class="social-btn microsoft">
+                                <img src="https://www.microsoft.com/favicon.ico" alt="Microsoft">
+                                Microsoft
+                            </button>
+                        </div>
+                    </div>
+                    <div class="auth-panel" id="auth-admin">
+                        <div class="input-group">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="landing-admin-email" placeholder="Email address" autocomplete="email" />
+                        </div>
+                        <div class="input-group">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="landing-admin-pass" placeholder="Password" autocomplete="current-password" />
+                            <button class="toggle-password" type="button">
+                                <i class="far fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="auth-options">
+                            <label class="remember-me">
+                                <input type="checkbox" id="remember-me">
+                                <span class="checkmark"></span>
+                                Remember me
+                            </label>
+                            <a href="#forgot-password" class="forgot-password">Forgot password?</a>
+                        </div>
+                        <button id="landing-admin-open" class="primary-btn full-width">
+                            Sign In
+                        </button>
+                        <div class="auth-footer">
+                            Don't have an account? <a href="#signup" class="auth-link">Sign up</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div id="admin-panel" class="start-screen" style="display:none;">
+        <div class="start-card" style="max-height:80vh;overflow:auto;min-width:520px;">
+            <h2>Admin Panel</h2>
+            <div style="margin-bottom:12px;">Saved Attempts (local)</div>
+            <div id="admin-attempts"></div>
+            <div style="display:flex; gap:10px; margin-top:14px;">
+                <button id="admin-close" class="reshuffle-btn">Close</button>
+                <button id="admin-clear" class="reshuffle-btn">Clear All</button>
+            </div>
+        </div>
+    </div>
+    <div id="start-screen" class="start-screen" style="display:none;">
+        <div class="start-card">
+            <h2>Enter Student Name</h2>
+            <label for="student-name-input">Student Name</label>
+            <input type="text" id="student-name-input" placeholder="Student Name" autocomplete="off" />
+            <button id="start-btn">Start</button>
+        </div>
+    </div>
+    <div id="dashboard" class="start-screen" style="display:none;">
+        <div class="start-card" style="min-width:520px;">
+            <h2>Dashboard</h2>
+            <div id="dashboard-user" style="margin-bottom:8px;"></div>
+            <label for="role-select">Role</label>
+            <select id="role-select" style="padding:8px 12px; border-radius:8px; background: var(--bg); color: var(--fg); border:1px solid #444;">
+                <option value="student">Student</option>
+                <option value="teacher">Teacher</option>
+            </select>
+            <div style="display:flex; gap:12px; margin-top:14px; flex-wrap:wrap;">
+                <button id="dash-take-test" class="primary-btn" style="flex:1;">Take Test</button>
+                <button id="dash-my-tests" class="reshuffle-btn" style="flex:1;">My Tests</button>
+                <button id="dash-all-tests" class="reshuffle-btn" style="flex:1; display:none;">All Students</button>
+                <button id="dash-logout" class="reshuffle-btn" style="flex:1;">Logout</button>
+            </div>
+            <div id="dash-list" style="margin-top:16px; max-height:45vh; overflow:auto;"></div>
+        </div>
+    </div>
+    <div class="container" style="display:none;">
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li class="nav-item active" data-section="uppercase">Uppercase Letters</li>
+                    <li class="nav-item" data-section="lowercase">Lowercase Letters</li>
+                    <li class="nav-item" data-section="sentence-filter">Sentence Filter</li>
+                    <li class="nav-item" data-section="word-preprimer">Word List: Pre-primer</li>
+                    <li class="nav-item" data-section="word-primer">Word List: Primer</li>
+                    <li class="nav-item" data-section="word-1">Word List: Level 1</li>
+                    <li class="nav-item" data-section="word-2">Word List: Level 2</li>
+                    <li class="nav-item" data-section="word-3">Word List: Level 3</li>
+                    <li class="nav-item" data-section="word-4">Word List: Level 4</li>
+                    <li class="nav-item" data-section="word-5">Word List: Level 5</li>
+                    <li class="nav-item" data-section="word-6">Word List: Level 6</li>
+                    <li class="nav-item" data-section="passage-preprimer">Passage: Pre-primer</li>
+                    <li class="nav-item" data-section="passage-primer">Passage: Primer</li>
+                    <li class="nav-item" data-section="passage-1">Passage: Level 1</li>
+                    <li class="nav-item" data-section="passage-2">Passage: Level 2</li>
+                    <li class="nav-item" data-section="passage-3">Passage: Level 3</li>
+                    <li class="nav-item" data-section="passage-4">Passage: Level 4</li>
+                    <li class="nav-item" data-section="passage-5">Passage: Level 5</li>
+                    <li class="nav-item" data-section="passage-6">Passage: Level 6</li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark/light mode">🌙</button>
+            <div id="student-name-display" class="student-name-display"></div>
+            <section id="section-content">
+                <!-- Dynamic content will be loaded here -->
+            </section>
+        </main>
+    </div>
+    <!-- Overlay for modals -->
+    <div class="overlay"></div>
+    
+    <!-- Firebase and Main Scripts -->
+    <script type="module" src="firebase.js"></script>
+    <script src="main.js"></script>
+    
+    <!-- Initialize the app when DOM is loaded -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize the app
+            if (typeof onload === 'function') {
+                onload();
+            }
+            
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mainNav = document.getElementById('main-nav');
+            if (mobileMenuBtn && mainNav) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mainNav.classList.toggle('active');
+                    mobileMenuBtn.setAttribute('aria-expanded', 
+                        mobileMenuBtn.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'
+                    );
+                });
+            }
+            
+            // Close mobile menu when clicking on nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    }
+                });
+            });
+            
+            // Theme toggle
+            const themeToggle = document.getElementById('landing-theme');
+            if (themeToggle) {
+                // Set initial theme
+                const savedTheme = localStorage.getItem('theme') || 'dark';
+                document.body.classList.toggle('light', savedTheme === 'light');
+                updateThemeIcon(themeToggle, savedTheme);
+                
+                themeToggle.addEventListener('click', () => {
+                    const isLight = !document.body.classList.toggle('light');
+                    const theme = isLight ? 'dark' : 'light';
+                    localStorage.setItem('theme', theme);
+                    updateThemeIcon(themeToggle, theme);
+                });
+            }
+            
+            // Get Started buttons
+            const setupAuthButton = (buttonId, tabId = 'student') => {
+                const button = document.getElementById(buttonId);
+                if (button) {
+                    button.addEventListener('click', () => {
+                        showAuthCard();
+                        const tab = document.querySelector(`.auth-tab[data-tab="${tabId}"]`);
+                        if (tab) tab.click();
+                    });
+                }
+            };
+            
+            // Set up all auth buttons
+            setupAuthButton('landing-get-started');
+            setupAuthButton('cta-button');
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                if (anchor.getAttribute('href') !== '#') {
+                    anchor.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        if (targetId === '#') return;
+                        
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                }
+            });
+        });
+        
+        // Update theme icon based on current theme
+        function updateThemeIcon(button, theme) {
+            if (!button) return;
+            const icon = button.querySelector('i');
+            if (icon) {
+                icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+                button.setAttribute('aria-label', `Switch to ${theme === 'light' ? 'dark' : 'light'} mode`);
+            }
+        }
+        
+        // Make these functions globally available
+        window.revealAuthCard = showAuthCard;
+        window.hideAuthCard = hideAuthCard;
+        
+        // Toggle theme function for other parts of the app
+        window.toggleTheme = () => {
+            const isLight = document.body.classList.toggle('light');
+            const theme = isLight ? 'light' : 'dark';
+            localStorage.setItem('theme', theme);
+            
+            const themeToggle = document.getElementById('landing-theme');
+            if (themeToggle) {
+                updateThemeIcon(themeToggle, theme);
+            }
+        };
+    </script>
+</body>
+</html>

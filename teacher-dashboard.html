@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard - Alpharia</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/teacher-dashboard.css">
+</head>
+
+<body class="teacher-dashboard">
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h2>Alpharia</h2>
+            </div>
+
+            <nav class="nav-menu">
+                <div class="menu-title">Main Menu</div>
+
+                <div class="nav-item">
+                    <a href="teacher-dashboard.html" class="nav-link active">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="create-test.html" class="nav-link">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Create Test</span>
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="my-tests.html" class="nav-link">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>My Tests</span>
+                    </a>
+                </div>
+
+                <div class="menu-title mt-4">Analytics</div>
+
+                <div class="nav-item">
+                    <a href="teacher-progress.html" class="nav-link">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Progress</span>
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="resources.html" class="nav-link">
+                        <i class="fas fa-book"></i>
+                        <span>Resources</span>
+                    </a>
+                </div>
+
+                <div class="menu-title mt-4">Account</div>
+
+                <div class="nav-item">
+                    <a href="teacher-settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="help.html" class="nav-link">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Help & Support</span>
+                    </a>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Teacher&background=4a6cf7&color=fff" alt="User"
+                        class="user-avatar" id="user-avatar-sidebar">
+                    <div class="user-info">
+                        <h4 class="user-name" id="sidebar-teacher-name">Loading...</h4>
+                        <span class="user-role">Teacher</span>
+                    </div>
+                    <button class="sign-out" id="logout-btn" title="Sign Out">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Search tests, students, or classes...">
+                </div>
+
+                <div class="user-menu">
+                    <a href="#notifications" class="notification-icon">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </a>
+
+                    <div class="user-avatar">
+                        <img src="" alt="User" class="rounded-circle" width="40" height="40" id="user-avatar">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Welcome Section -->
+                <section class="welcome-section">
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="welcome-content">
+                                <h1>Welcome back, <span class="text-primary" id="teacher-name">Loading...</span>!</h1>
+                                <p class="lead" id="welcome-message">Loading your dashboard...</p>
+                                <div id="loading-indicator" class="loading-spinner">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </section>
+
+                <!-- Quick Stats -->
+                <div class="quick-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>0</h3>
+                            <p>Total Tests</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>0</h3>
+                            <p>Students</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>N/A</h3>
+                            <p>Avg. Score</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card highlight">
+                        <div class="stat-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>0</h3>
+                            <p>Pending Grading</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Tests -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-file-alt"></i> Recent Tests</h3>
+                        <a href="#view-all" class="btn btn-link">View All</a>
+                    </div>
+                    <div class="card-body">
+                        <div id="recent-tests-container">
+                            <p id="no-tests-message">No recent tests found.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Classes -->
+                <div class="classes-grid" id="upcoming-classes-container">
+                    <p id="no-classes-message">No upcoming classes found.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Firebase SDK and Teacher Dashboard Scripts -->
+    <!-- <script type="module" src="./js/teacher-dashboard.js"></script> -->
+    <!-- Commenting out potentially redundant script, relying on inline logic -->
+
+    <!-- Initialize the dashboard -->
+    <script type="module">
+        // Import Firebase modules
+        import { app, auth, db } from './js/firebase-config.js';
+        import { requireAuth } from './js/auth-check.js';
+
+        // Import Auth functions directly from CDN
+        import {
+            signOut
+        } from 'https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js';
+
+        // Import Firestore functions
+        import { doc, getDoc, collection, query, where, orderBy, limit, getDocs } from 'https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js';
+
+        async function fetchAndDisplayRecentTests(teacherId) {
+            console.log('Fetching recent tests for teacher:', teacherId);
+            const testsContainer = document.getElementById('recent-tests-container');
+            const noTestsMessage = document.getElementById('no-tests-message');
+
+            if (!testsContainer) {
+                console.error('Test container element not found in the DOM.');
+                return;
+            }
+
+            try {
+                const testsRef = collection(db, 'tests');
+                const q = query(testsRef, where('teacherId', '==', teacherId), orderBy('createdAt', 'desc'), limit(5));
+                const querySnapshot = await getDocs(q);
+
+                if (querySnapshot.empty) {
+                    console.log('No recent tests found for this teacher.');
+                    if (noTestsMessage) noTestsMessage.style.display = 'block';
+                    testsContainer.innerHTML = ''; // Clear any existing content
+                } else {
+                    if (noTestsMessage) noTestsMessage.style.display = 'none';
+                    testsContainer.innerHTML = ''; // Clear the message
+
+                    querySnapshot.forEach(doc => {
+                        const test = doc.data();
+                        const testId = doc.id;
+
+                        const createdAt = test.createdAt.toDate();
+                        const formattedDate = createdAt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+                        const testCardHTML = `
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <h4>${test.title || 'Untitled Test'}</h4>
+                                    <p>${test.questions ? test.questions.length : 0} questions</p>
+                                    <small>Created: ${formattedDate}</small>
+                                </div>
+                                <div class="activity-actions">
+                                    <a href="view-test.html?testId=${testId}" class="btn btn-outline btn-sm">View</a>
+                                    <a href="#" class="btn btn-link btn-sm">Results</a>
+                                </div>
+                            </div>
+                        `;
+                        testsContainer.insertAdjacentHTML('beforeend', testCardHTML);
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching recent tests:', error);
+                testsContainer.innerHTML = '<p>Error loading tests. Please try again later.</p>';
+            }
+        }
+
+        // Init Dashboard Start
+
+        // Configure auth persistence
+        setPersistence(auth, browserLocalPersistence)
+            .then(() => {
+                console.log('Auth persistence set to LOCAL');
+            })
+            .catch((error) => {
+                console.error('Error setting auth persistence:', error);
+            });
+
+        // Check auth state and initialize dashboard
+        console.log('Checking auth state...');
+        let isInitializing = false;
+        // Logout Functionality
+        const logoutButton = document.getElementById('logout-btn');
+
+        async function handleLogout() {
+            try {
+                await signOut(auth);
+                console.log('User signed out successfully.');
+                window.location.href = 'auth/login-fixed.html';
+            } catch (error) {
+                console.error('Error signing out:', error);
+                alert('Failed to sign out. Please try again.');
+            }
+        }
+
+        if (logoutButton) {
+            logoutButton.addEventListener('click', handleLogout);
+        }
+
+        // Initialize dashboard
+        async function initDashboard() {
+            try {
+                // Check auth and role
+                const { user } = await requireAuth(['teacher', 'admin']);
+
+                // Initialize UI
+                // Fetch profile logic
+                let teacherName = user.displayName || 'Teacher';
+                let photoURL = user.photoURL;
+
+                try {
+                    // Try to fetch extended profile
+                    const teacherDoc = await getDoc(doc(db, 'teachers', user.uid));
+                    if (teacherDoc.exists()) {
+                        teacherName = teacherDoc.data().name || teacherName;
+                    } else {
+                        // Fallback to users collection
+                        const userDoc = await getDoc(doc(db, 'users', user.uid));
+                        if (userDoc.exists()) {
+                            teacherName = userDoc.data().firstName
+                                ? `${userDoc.data().firstName} ${userDoc.data().lastName || ''}`
+                                : (userDoc.data().displayName || teacherName);
+                        }
+                    }
+                } catch (e) { console.error("Profile fetch error", e); }
+
+                // Update UI elements
+                const nameEls = [document.getElementById('teacher-name'), document.getElementById('sidebar-teacher-name')];
+                nameEls.forEach(el => { if (el) el.textContent = teacherName; });
+
+                const welcomeMsg = document.getElementById('welcome-message');
+                if (welcomeMsg) {
+                    welcomeMsg.textContent = `Welcome to your dashboard, ${teacherName.split(' ')[0]}!`;
+                    welcomeMsg.style.display = 'block';
+                }
+
+                const avatarEls = [document.getElementById('user-avatar'), document.getElementById('user-avatar-sidebar')];
+                avatarEls.forEach(el => {
+                    if (el && photoURL) el.src = photoURL;
+                    else if (el) el.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(teacherName)}&background=4a6cf7&color=fff`;
+                });
+
+                const loadingInd = document.getElementById('loading-indicator');
+                if (loadingInd) loadingInd.style.display = 'none';
+
+                // Fetch data
+                await fetchAndDisplayRecentTests(user.uid);
+                fetchTeacherTests(user.uid);
+
+                // Logout setup
+                const logoutBtn = document.getElementById('logout-btn');
+                if (logoutBtn) {
+                    // Remove old listener if possible (cloneNode trick)
+                    const newBtn = logoutBtn.cloneNode(true);
+                    logoutBtn.parentNode.replaceChild(newBtn, logoutBtn);
+                    newBtn.addEventListener('click', async () => {
+                        await signOut(auth);
+                        window.location.href = '/auth/login-fixed.html';
+                    });
+                }
+
+            } catch (error) {
+                console.error("Dashboard init failed", error);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', initDashboard);
+
+        // Function to fetch and display teacher's tests
+        async function fetchTeacherTests(teacherId) {
+            try {
+                console.log('Fetching tests for teacher:', teacherId);
+
+                // Get all tests created by this teacher, ordered by creation date
+                const testsRef = collection(db, 'tests');
+                const q = query(
+                    testsRef,
+                    where('teacherId', '==', teacherId),
+                    orderBy('createdAt', 'desc'),
+                    limit(5) // Limit to 5 most recent tests
+                );
+
+                const querySnapshot = await getDocs(q);
+                const testsContainer = document.querySelector('.card-body');
+
+                // Clear existing test items
+                testsContainer.innerHTML = '';
+
+                // Update the total tests count
+                const totalTestsElement = document.querySelector('.quick-stats .stat-card:first-child h3');
+                if (totalTestsElement) {
+                    totalTestsElement.textContent = querySnapshot.size;
+                }
+
+                if (querySnapshot.empty) {
+                    testsContainer.innerHTML = `
+                        <div class="no-tests">
+                            <i class="fas fa-inbox"></i>
+                            <p>No tests found. Create your first test to get started!</p>
+                        </div>`;
+                    return;
+                }
+
+                // Create test items for each test
+                querySnapshot.forEach((doc) => {
+                    const test = doc.data();
+                    const testId = doc.id;
+                    const testDate = test.createdAt ? test.createdAt.toDate().toLocaleDateString() : 'No date';
+
+                    const testItem = document.createElement('div');
+                    testItem.className = 'activity-item';
+                    testItem.dataset.testId = testId; // Store test ID in dataset
+                    testItem.innerHTML = `
+                        <div class="activity-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="activity-details">
+                            <h4>${test.title || 'Untitled Test'}</h4>
+                            <p>${test.sections ? test.sections.length : 0} sections</p>
+                            <small>Created: ${testDate}</small>
+                        </div>
+                        <div class="activity-actions">
+                            <button class="btn btn-outline btn-sm view-test" data-test-id="${testId}">
+                                View
+                            </button>
+                            <button class="btn btn-link btn-sm view-results" data-test-id="${testId}">
+                                Results
+                            </button>
+                        </div>`;
+
+                    testsContainer.appendChild(testItem);
+                });
+
+            } catch (error) {
+                console.error('Error fetching tests:', error);
+                const testsContainer = document.querySelector('.card-body');
+                if (testsContainer) {
+                    testsContainer.innerHTML = `
+                        <div class="alert alert-danger">
+                            Error loading tests. Please refresh the page.
+                        </div>`;
+                }
+            }
+        }
+
+        // Add these functions for the view buttons
+        function viewTest(testId) {
+            // Navigate to view test page with testId
+            window.location.href = `view-test.html?id=${testId}`;
+        }
+
+        function viewResults(testId) {
+            // Navigate to test results page with testId
+            window.location.href = `test-results.html?id=${testId}`;
+        }
+
+        // Add event delegation for test actions
+        function setupTestEventListeners() {
+            document.addEventListener('click', (e) => {
+                // Handle View Test button clicks
+                if (e.target.closest('.view-test')) {
+                    const button = e.target.closest('.view-test');
+                    const testId = button.dataset.testId;
+                    viewTest(testId);
+                }
+
+                // Handle View Results button clicks
+                if (e.target.closest('.view-results')) {
+                    const button = e.target.closest('.view-results');
+                    const testId = button.dataset.testId;
+                    viewResults(testId);
+                }
+            });
+        }
+
+        // Initialize the dashboard when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM fully loaded');
+            setupTestEventListeners(); // Add event listeners
+            // Any initialization code that needs to run after DOM is loaded
+        });
+
+        // Clean up the auth state listener when the page unloads
+        window.addEventListener('beforeunload', () => {
+            console.log('Cleaning up auth state listener...');
+            if (unsubscribe) {
+                unsubscribe();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

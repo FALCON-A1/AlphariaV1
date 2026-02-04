@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Alpharia</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/teacher-dashboard.css">
+    <style>
+        /* Admin-specific overrides */
+        :root {
+            --primary-color: #4a6cf7;
+            --primary-hover: #3a5ce4;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --info-color: #17a2b8;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --sidebar-width: 250px;
+            --header-height: 70px;
+            --dropdown-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.3s;
+        }
+
+        .admin-badge {
+            background-color: var(--warning-color);
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        /* Enhanced User Menu Styles */
+        .user-menu {
+            position: relative;
+            z-index: 1000;
+        }
+
+        .user-menu-button {
+            display: flex;
+            align-items: center;
+            background: none;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color var(--transition-speed) ease;
+        }
+
+        .user-menu-button:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .user-menu-button[aria-expanded="true"] .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .user-info {
+            text-align: left;
+            margin-right: 10px;
+        }
+
+        .user-name {
+            display: block;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .user-role {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+        }
+
+        .dropdown-arrow {
+            transition: transform var(--transition-speed) ease;
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 5px);
+            right: 0;
+            min-width: 200px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: var(--dropdown-shadow);
+            padding: 8px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all var(--transition-speed) ease;
+            z-index: 1001;
+            display: none;
+            /* Start hidden */
+        }
+
+        .dropdown-menu[data-visible="true"] {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 16px;
+            color: var(--dark-color);
+            text-decoration: none;
+            transition: background-color var(--transition-speed) ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+        }
+
+        .dropdown-item i {
+            width: 24px;
+            margin-right: 10px;
+            text-align: center;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background-color: rgba(0, 0, 0, 0.1);
+            margin: 6px 0;
+        }
+
+        .text-danger {
+            color: var(--danger-color) !important;
+        }
+
+        .text-danger:hover {
+            color: #c82333 !important;
+        }
+    </style>
+</head>
+
+<body class="teacher-dashboard">
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h2>Alpharia <span class="admin-badge">Admin</span></h2>
+            </div>
+
+            <nav class="nav-menu">
+                <div class="menu-title">Main Menu</div>
+
+                <div class="nav-item">
+                    <a href="admin-dashboard.html" class="nav-link active">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="admin-management.html" class="nav-link">
+                        <i class="fas fa-users-cog"></i>
+                        <span>Management</span>
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="admin-tests.html" class="nav-link">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>All Tests</span>
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="admin-create-test.html" class="nav-link">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Create Test</span>
+                    </a>
+                </div>
+
+                <div class="menu-title mt-4">Analytics</div>
+
+                <div class="nav-item">
+                    <a href="admin-reports.html" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Reports</span>
+                    </a>
+                </div>
+
+                <div class="menu-title mt-4">Account</div>
+
+                <div class="nav-item">
+                    <a href="admin-settings.html" class="nav-link">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <a href="help.html" class="nav-link">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Help & Support</span>
+                    </a>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=4a6cf7&color=fff" alt="User"
+                        class="user-avatar" id="user-avatar-sidebar">
+                    <div class="user-info">
+                        <h4 class="user-name" id="sidebar-admin-name">Loading...</h4>
+                        <span class="user-role">Administrator</span>
+                    </div>
+                    <button class="sign-out" id="logout-btn" title="Sign Out">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <button class="sidebar-toggle" id="sidebar-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h2>Admin Dashboard</h2>
+                </div>
+
+                <div class="top-bar-right">
+                    <div class="user-menu" id="user-menu">
+                        <button class="user-menu-button" id="user-menu-button" aria-expanded="false"
+                            aria-haspopup="true">
+                            <div class="user-avatar">
+                                <i class="fas fa-user-shield"></i>
+                            </div>
+                            <div class="user-info">
+                                <span class="user-name">Admin</span>
+                                <span class="user-role">Administrator</span>
+                            </div>
+                            <i class="fas fa-chevron-down dropdown-arrow"></i>
+                        </button>
+
+                        <div class="dropdown-menu" id="user-dropdown" aria-labelledby="user-menu-button">
+                            <a href="admin-settings.html" class="dropdown-item">
+                                <i class="fas fa-user-cog"></i> Settings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item text-danger" id="admin-logout-btn">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <div class="welcome-section">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3>Welcome, <span id="admin-name">Administrator</span>!</h3>
+                            <p class="text-muted">Here's what's happening with your platform today.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="row stats-row stats-container">
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-primary">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="total-teachers">0</h3>
+                                <p>Total Teachers</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-success">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="total-students">0</h3>
+                                <p>Total Students</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-warning">
+                                <i class="fas fa-clipboard-list"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="total-tests">0</h3>
+                                <p>Total Tests</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-info">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="avg-score">0%</h3>
+                                <p>Avg. Test Score</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity and Quick Actions -->
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Recent Activity</h4>
+                                <div class="card-actions">
+                                    <button class="btn btn-sm btn-outline-secondary">View All</button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="activity-list" id="recent-activity">
+                                    <div class="activity-item">
+                                        <div class="activity-icon">
+                                            <i class="fas fa-info-circle text-info"></i>
+                                        </div>
+                                        <div class="activity-details">
+                                            <p>Welcome to your admin dashboard. Start by exploring the management
+                                                section.</p>
+                                            <span class="activity-time">Just now</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Quick Actions</h4>
+                            </div>
+                            <div class="card-body">
+                                <a href="admin-management.html" class="btn btn-primary btn-block mb-2">
+                                    <i class="fas fa-users-cog"></i> Manage Users
+                                </a>
+                                <a href="admin-tests.html" class="btn btn-success btn-block mb-2">
+                                    <i class="fas fa-clipboard-check"></i> View All Tests
+                                </a>
+                                <a href="admin-reports.html" class="btn btn-info btn-block mb-2">
+                                    <i class="fas fa-chart-pie"></i> View Reports
+                                </a>
+                                <a href="#" class="btn btn-warning btn-block" id="admin-settings-btn">
+                                    <i class="fas fa-cog"></i> System Settings
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Firebase SDK and Admin Dashboard Scripts -->
+    <script type="module">
+        import { app, auth, db } from './js/firebase-config.js';
+        import { requireAuth } from './js/auth-check.js';
+        import {
+            getFirestore, collection, getDocs, query, where, doc, getDoc,
+            orderBy, limit, Timestamp, setDoc, updateDoc
+        } from 'https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js';
+        import { signOut } from 'https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js';
+
+        // Make auth and db available globally
+        window.auth = auth;
+        window.db = db;
+
+        // Initialize dashboard
+        async function initDashboard() {
+            try {
+                const { user } = await requireAuth(['admin']);
+
+                // Update UI with user info
+                const adminNameEl = document.getElementById('admin-name');
+                const userNameEl = document.querySelector('.user-name');
+                const sidebarNameEl = document.getElementById('sidebar-admin-name');
+
+                // Fetch admin profile if needed
+                let displayName = user.displayName || 'Administrator';
+                try {
+                    const adminDoc = await getDoc(doc(db, 'admins', user.uid));
+                    if (adminDoc.exists()) {
+                        displayName = adminDoc.data().name || displayName;
+                    } else {
+                        // Check users collection
+                        const userDoc = await getDoc(doc(db, 'users', user.uid));
+                        if (userDoc.exists()) {
+                            displayName = userDoc.data().firstName
+                                ? `${userDoc.data().firstName} ${userDoc.data().lastName || ''}`
+                                : (userDoc.data().displayName || displayName);
+                        }
+                    }
+                } catch (e) { console.error("Error fetching profile", e); }
+
+                if (adminNameEl) adminNameEl.textContent = displayName;
+                if (userNameEl) userNameEl.textContent = displayName;
+                if (sidebarNameEl) sidebarNameEl.textContent = displayName;
+
+                initSidebar();
+                initUserMenu();
+                loadDashboardStats();
+
+                // Logout handler
+                const logoutBtn = document.getElementById('admin-logout-btn');
+                if (logoutBtn) {
+                    logoutBtn.addEventListener('click', async (e) => {
+                        e.preventDefault();
+                        await signOut(auth);
+                        window.location.href = '/auth/login-fixed.html';
+                    });
+                }
+
+                // Also handle sidebar logout button
+                const sidebarLogout = document.getElementById('logout-btn');
+                if (sidebarLogout) {
+                    sidebarLogout.addEventListener('click', async (e) => {
+                        e.preventDefault();
+                        await signOut(auth);
+                        window.location.href = '/auth/login-fixed.html';
+                    });
+                }
+
+            } catch (e) {
+                console.error("Dashboard init failed", e);
+            }
+        }
+
+        window.addEventListener('load', initDashboard);
+
+        // Initialize sidebar functionality
+        function initSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const mainContent = document.querySelector('.main-content');
+
+            // Toggle sidebar on button click
+            if (sidebarToggle && sidebar) {
+                sidebarToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    sidebar.classList.toggle('collapsed');
+                    mainContent.classList.toggle('expanded');
+
+                    // Save sidebar state to localStorage
+                    const isCollapsed = sidebar.classList.contains('collapsed');
+                    localStorage.setItem('sidebarCollapsed', isCollapsed);
+                });
+
+                // Close sidebar when clicking outside on mobile
+                document.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 992 &&
+                        !sidebar.contains(e.target) &&
+                        !sidebarToggle.contains(e.target) &&
+                        !sidebar.classList.contains('collapsed')) {
+                        sidebar.classList.add('collapsed');
+                        mainContent.classList.add('expanded');
+                        localStorage.setItem('sidebarCollapsed', true);
+                    }
+                });
+
+                // Load saved sidebar state
+                const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+                if (isCollapsed) {
+                    sidebar.classList.add('collapsed');
+                    mainContent.classList.add('expanded');
+                }
+            }
+
+            // Handle sidebar menu items
+            const menuItems = document.querySelectorAll('.sidebar-nav .nav-link');
+            menuItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    // Remove active class from all items
+                    menuItems.forEach(i => i.classList.remove('active'));
+                    // Add active class to clicked item
+                    item.classList.add('active');
+
+                    // Close sidebar on mobile after clicking a menu item
+                    if (window.innerWidth <= 992) {
+                        sidebar.classList.add('collapsed');
+                        mainContent.classList.add('expanded');
+                    }
+                });
+            });
+        }
+
+        // Initialize user menu dropdown
+        function initUserMenu() {
+            const userMenu = document.getElementById('user-menu');
+            const userMenuButton = document.getElementById('user-menu-button');
+
+            if (!userMenu || !userMenuButton) return;
+
+            let menuOpen = false;
+
+            // Toggle menu on button click
+            userMenuButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                menuOpen = !menuOpen;
+                const dropdownMenu = userMenu.querySelector('.dropdown-menu');
+                if (menuOpen) {
+                    dropdownMenu.style.display = 'block';
+                    setTimeout(() => {
+                        dropdownMenu.setAttribute('data-visible', 'true');
+                    }, 10);
+                } else {
+                    dropdownMenu.setAttribute('data-visible', 'false');
+                    setTimeout(() => {
+                        dropdownMenu.style.display = 'none';
+                    }, 200); // Match this with CSS transition time
+                }
+                userMenuButton.setAttribute('aria-expanded', menuOpen);
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (menuOpen && !userMenu.contains(e.target)) {
+                    menuOpen = false;
+                    const dropdownMenu = userMenu.querySelector('.dropdown-menu');
+                    dropdownMenu.setAttribute('data-visible', 'false');
+                    userMenuButton.setAttribute('aria-expanded', 'false');
+                    setTimeout(() => {
+                        dropdownMenu.style.display = 'none';
+                    }, 200); // Match this with CSS transition time
+                }
+            });
+
+            // Close menu when pressing Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && menuOpen) {
+                    menuOpen = false;
+                    const dropdownMenu = userMenu.querySelector('.dropdown-menu');
+                    dropdownMenu.setAttribute('data-visible', 'false');
+                    userMenuButton.setAttribute('aria-expanded', 'false');
+                    setTimeout(() => {
+                        dropdownMenu.style.display = 'none';
+                    }, 200); // Match this with CSS transition time
+                }
+            });
+        }
+
+        // Load dashboard statistics
+        async function loadDashboardStats() {
+            // Wait a small amount of time to ensure all elements are in the DOM
+            await new Promise(resolve => setTimeout(resolve, 100));
+
+            const statsContainer = document.querySelector('.stats-container');
+            const loadingHTML = '<div class="text-center py-4"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+
+            // Debug: Log all elements with the expected IDs
+            console.log('Looking for stats elements:', {
+                'total-teachers': document.getElementById('total-teachers'),
+                'total-students': document.getElementById('total-students'),
+                'total-tests': document.getElementById('total-tests'),
+                'avg-score': document.getElementById('avg-score')
+            });
+
+            // Show loading state if container exists
+            if (statsContainer) {
+                // Store the original content
+                const originalContent = statsContainer.innerHTML;
+
+                // Add loading class and spinner
+                statsContainer.classList.add('loading');
+                const spinner = document.createElement('div');
+                spinner.className = 'loading-spinner';
+                spinner.innerHTML = '<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>';
+                statsContainer.appendChild(spinner);
+
+                // Restore original content after loading
+                const restoreContent = () => {
+                    statsContainer.classList.remove('loading');
+                    if (spinner.parentNode === statsContainer) {
+                        statsContainer.removeChild(spinner);
+                    }
+                    return originalContent;
+                };
+
+                // Store the restore function for later use
+                statsContainer._restoreContent = restoreContent;
+            } else {
+                console.warn('Stats container not found. Make sure an element with class "stats-container" exists in the DOM.');
+                return; // Exit if no container found
+            }
+
+            try {
+
+                // Fetch all necessary data in parallel
+                const [teachersSnapshot, studentsSnapshot, testsSnapshot] = await Promise.all([
+                    getDocs(collection(db, 'teachers')),
+                    getDocs(collection(db, 'students')),
+                    getDocs(collection(db, 'tests'))
+                ]);
+
+                // Process the data
+                const totalTeachers = teachersSnapshot.size;
+                const totalStudents = studentsSnapshot.size;
+                const activeTests = testsSnapshot.size;
+
+                // Calculate average score (example: get from student test results)
+                let totalScore = 0;
+                let scoreCount = 0;
+
+                studentsSnapshot.forEach(doc => {
+                    const student = doc.data();
+                    if (student.averageScore) {
+                        totalScore += student.averageScore;
+                        scoreCount++;
+                    }
+                });
+
+                const avgScore = scoreCount > 0 ? Math.round((totalScore / scoreCount) * 100) / 100 : 0;
+
+                // Update the UI with real data - safely update each element if it exists
+                // Update the stats cards with proper null checks
+                const updateIfExists = (id, value) => {
+                    const el = document.getElementById(id);
+                    if (el) el.textContent = value;
+                };
+
+                updateIfExists('total-teachers', totalTeachers);
+                updateIfExists('total-students', totalStudents);
+                updateIfExists('total-tests', activeTests);
+                updateIfExists('avg-score', `${avgScore}%`);
+
+                // Update the admin's name
+                const adminName = document.getElementById('admin-name');
+                const user = auth.currentUser;
+                if (user) {
+                    const userDoc = await getDoc(doc(db, 'admins', user.uid));
+                    if (userDoc.exists()) {
+                        const userData = userDoc.data();
+                        const displayName = userData.name || user.displayName || 'Administrator';
+                        adminName.textContent = displayName;
+
+                        // Also update the name in the top bar
+                        const topBarName = document.querySelector('.user-name');
+                        if (topBarName) {
+                            topBarName.textContent = displayName;
+                        }
+                    }
+                }
+
+                // Load recent activity
+                await loadRecentActivity();
+
+                // Update the welcome message with the current time
+                updateWelcomeMessage();
+
+            } catch (error) {
+                console.error('Error loading dashboard stats:', error);
+                // Show error message
+                const statsContainer = document.querySelector('.stats-container');
+                if (statsContainer) {
+                    statsContainer.innerHTML = `
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Error loading dashboard data. Please refresh the page or try again later.
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        // Load recent activity
+        async function loadRecentActivity() {
+            try {
+                const activityContainer = document.getElementById('recent-activity');
+                if (!activityContainer) return;
+
+                // Show loading state
+                activityContainer.innerHTML = '<div class="text-center py-4"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+
+                // Fetch recent tests and sort by date
+                const testsQuery = query(collection(db, 'tests'), orderBy('createdAt', 'desc'), limit(5));
+                const testsSnapshot = await getDocs(testsQuery);
+
+                if (testsSnapshot.empty) {
+                    activityContainer.innerHTML = '<div class="text-muted text-center py-4">No recent activity found.</div>';
+                    return;
+                }
+
+                // Process and display recent activity
+                let activityHTML = '';
+                const now = new Date();
+
+                testsSnapshot.forEach(doc => {
+                    const test = doc.data();
+                    const testDate = test.createdAt ? test.createdAt.toDate() : now;
+                    const timeAgo = formatTimeAgo(testDate, now);
+
+                    activityHTML += `
+                        <div class="activity-item" data-test-id="${doc.id}" style="cursor: pointer;">
+                            <div class="activity-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="activity-details">
+                                <h5>New Test Created</h5>
+                                <p class="mb-0 text-primary">${test.testName || 'Untitled Test'}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">${timeAgo}</small>
+                                    <small class="text-primary">View Details <i class="fas fa-chevron-right ms-1"></i></small>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                activityContainer.innerHTML = activityHTML;
+
+                // Add click event listeners to activity items
+                document.querySelectorAll('.activity-item').forEach(item => {
+                    item.addEventListener('click', (e) => {
+                        const testId = item.getAttribute('data-test-id');
+                        if (testId) {
+                            window.location.href = `test-details.html?id=${testId}`;
+                        }
+                    });
+
+                    // Add hover effect
+                    item.addEventListener('mouseenter', () => {
+                        item.style.backgroundColor = '#f8f9fa';
+                    });
+                    item.addEventListener('mouseleave', () => {
+                        item.style.backgroundColor = '';
+                    });
+                });
+
+            } catch (error) {
+                console.error('Error loading recent activity:', error);
+                const activityContainer = document.getElementById('recent-activity');
+                if (activityContainer) {
+                    activityContainer.innerHTML = `
+                        <div class="text-danger">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            Failed to load recent activity
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        // Helper function to format time ago
+        function formatTimeAgo(date, now) {
+            const seconds = Math.floor((now - date) / 1000);
+
+            const intervals = {
+                year: 31536000,
+                month: 2592000,
+                week: 604800,
+                day: 86400,
+                hour: 3600,
+                minute: 60
+            };
+
+            for (const [unit, secondsInUnit] of Object.entries(intervals)) {
+                const interval = Math.floor(seconds / secondsInUnit);
+                if (interval >= 1) {
+                    return interval === 1 ? `1 ${unit} ago` : `${interval} ${unit}s ago`;
+                }
+            }
+
+            return 'Just now';
+        }
+
+        // Update welcome message based on time of day
+        function updateWelcomeMessage() {
+            const hour = new Date().getHours();
+            let greeting = 'Welcome';
+
+            if (hour < 12) {
+                greeting = 'Good morning';
+            } else if (hour < 18) {
+                greeting = 'Good afternoon';
+            } else {
+                greeting = 'Good evening';
+            }
+
+            const welcomeElement = document.querySelector('.welcome-section h3');
+            if (welcomeElement) {
+                const name = document.getElementById('admin-name').textContent;
+                welcomeElement.textContent = `${greeting}, ${name}!`;
+            }
+        }
+
+        // Handle logout
+        async function handleLogout(e) {
+            e.preventDefault();
+
+            try {
+                // Clear admin session
+                sessionStorage.removeItem('isAdmin');
+
+                // Sign out from Firebase
+                await signOut(auth);
+
+                // Redirect to login page
+                window.location.href = '/auth/login-fixed.html';
+            } catch (error) {
+                console.error('Error signing out:', error);
+                alert('Error signing out. Please try again.');
+            }
+        }
+
+        // (End of script)
+    </script>
+</body>
+
+</html>

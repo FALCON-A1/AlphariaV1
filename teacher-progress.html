@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Progress - Alpharia Teacher</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="css/teacher-dashboard.css" rel="stylesheet">
+    <link href="css/teacher-styles.css" rel="stylesheet">
+</head>
+<body class="dashboard-layout teacher-progress-page">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <h2>Alpharia</h2>
+        </div>
+        
+        <nav class="nav-menu">
+            <div class="menu-title">Main Menu</div>
+            
+            <div class="nav-item">
+                <a href="teacher-dashboard.html" class="nav-link">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+            
+            <div class="nav-item">
+                <a href="create-test.html" class="nav-link">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Create Test</span>
+                </a>
+            </div>
+            
+            <div class="nav-item">
+                <a href="my-tests.html" class="nav-link">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>My Tests</span>
+                </a>
+            </div>
+            
+            <div class="menu-title mt-4">Analytics</div>
+            
+            <div class="nav-item">
+                <a href="teacher-progress.html" class="nav-link active">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </a>
+            </div>
+            
+            <div class="nav-item">
+                <a href="resources.html" class="nav-link">
+                    <i class="fas fa-book"></i>
+                    <span>Resources</span>
+                </a>
+            </div>
+            
+            <div class="menu-title mt-4">Account</div>
+            
+            <div class="nav-item">
+                <a href="teacher-settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </div>
+            
+            <div class="nav-item">
+                <a href="help.html" class="nav-link">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Help & Support</span>
+                </a>
+            </div>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="user-profile">
+                <img src="https://ui-avatars.com/api/?name=Teacher&background=4a6cf7&color=fff" alt="User" class="user-avatar" id="user-avatar-sidebar">
+                <div class="user-info">
+                    <h4 class="user-name" id="sidebar-teacher-name">Loading...</h4>
+                    <span class="user-role">Teacher</span>
+                </div>
+                <button class="sign-out" id="logout-btn" title="Sign Out">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Top Bar -->
+        <nav class="top-bar">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <div class="user-profile">
+                <span class="username">Teacher Name</span>
+                <div class="avatar">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Content -->
+        <div class="container-fluid py-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Class Progress</h2>
+                <div class="btn-group">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-filter me-2"></i>Filter by Class
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">All Classes</a></li>
+                        <li><a class="dropdown-item" href="#">English 101</a></li>
+                        <li><a class="dropdown-item" href="#">Advanced Pronunciation</a></li>
+                        <li><a class="dropdown-item" href="#">Conversation Practice</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="card stat-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-muted">Total Students</h6>
+                                    <h3 class="mb-0" id="total-students">0</h3>
+                                </div>
+                                <div class="stat-icon bg-primary-light">
+                                    <i class="fas fa-users text-primary"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card stat-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-muted">Average Score</h6>
+                                    <h3 class="mb-0" id="average-score">0%</h3>
+                                </div>
+                                <div class="stat-icon bg-success-light">
+                                    <i class="fas fa-chart-line text-success"></i>
+                                </div>
+                            </div>
+                            <div class="mt-2" id="average-score-trend">
+                                <small class="text-muted">Loading...</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card stat-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-muted">Assignments Graded</h6>
+                                    <h3 class="mb-0" id="assignments-graded">0</h3>
+                                </div>
+                                <div class="stat-icon bg-warning-light">
+                                    <i class="fas fa-check-circle text-warning"></i>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <small class="text-muted" id="assignments-pending">Loading data...</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card stat-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="text-muted">Class Average</h6>
+                                    <h3 class="mb-0" id="class-average">-</h3>
+                                </div>
+                                <div class="stat-icon bg-info-light">
+                                    <i class="fas fa-award text-info"></i>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <small class="text-muted" id="class-status">Loading...</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Charts -->
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">Class Performance</h5>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                                    Last 6 Months
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Last 30 Days</a></li>
+                                    <li><a class="dropdown-item active" href="#">Last 6 Months</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                    <li><a class="dropdown-item" href="#">All Time</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-area" style="position: relative; height: 300px;">
+                                <canvas id="classPerformanceChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">Score Distribution</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-pie" style="position: relative; height: 250px;">
+                                <canvas id="scoreDistributionChart"></canvas>
+                            </div>
+                            <div class="mt-4 text-center small">
+                                <span class="me-2">
+                                    <i class="fas fa-circle" style="color: #1cc88a;"></i> 90-100%
+                                </span>
+                                <span class="me-2">
+                                    <i class="fas fa-circle" style="color: #36b9cc;"></i> 80-89%
+                                </span>
+                                <span class="me-2">
+                                    <i class="fas fa-circle" style="color: #f6c23e;"></i> 70-79%
+                                </span>
+                                <span class="me-2">
+                                    <i class="fas fa-circle" style="color: #e74a3b;"></i> 60-69%
+                                </span>
+                                <span class="me-2">
+                                    <i class="fas fa-circle" style="color: #858796;"></i> &lt;60%
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Progress Table -->
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Student Progress</h5>
+                    <div>
+                        <button id="addStudentBtn" class="btn btn-primary btn-sm me-2">
+                            <i class="fas fa-user-plus me-1"></i> Add Student
+                        </button>
+                        <button class="btn btn-sm btn-outline-primary me-2">
+                            <i class="fas fa-download me-1"></i> Export
+                        </button>
+                        <button class="btn btn-sm btn-primary">
+                            <i class="fas fa-plus me-1"></i> Add Student
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table id="studentProgressTable" class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Last Active</th>
+                                    <th>Average Score</th>
+                                    <th>Completed Tests</th>
+                                    <th>Progress</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentTableBody">
+                                <!-- Student rows will be populated dynamically by JavaScript -->
+                                <tr id="noStudentsRow" style="display: none;">
+                                    <td colspan="5" class="text-center py-4">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                        <p class="mt-2 mb-0">Loading student data...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer bg-white">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center mb-0">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Student Modal -->
+    <div class="modal fade" id="addStudentModal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStudentModalLabel">Add Students to Your Class</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            <input type="text" id="studentSearch" class="form-control" placeholder="Search students...">
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th width="40"></th>
+                                    <th>Student Name</th>
+                                    <th>Email</th>
+                                    <th>Grade</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="availableStudentsList">
+                                <tr>
+                                    <td colspan="5" class="text-center py-4">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                        <p class="mt-2 mb-0">Loading available students...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmAddStudents">
+                        <i class="fas fa-user-plus me-1"></i> Add Selected Students
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery and DataTables -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    
+    <!-- Chart.js and Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Our script must be loaded after all dependencies -->
+    <script type="module" src="js/teacher-progress.js"></script>
+    
+    <!-- Custom Styles for Charts -->
+    <style>
+        .chart-area {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        .chart-pie {
+            position: relative;
+            height: 250px;
+            width: 100%;
+        }
+        .progress {
+            height: 8px;
+            margin-top: 8px;
+            background-color: #eaecf4;
+            border-radius: 4px;
+        }
+        .progress-bar {
+            border-radius: 4px;
+        }
+        .stat-card {
+            transition: transform 0.2s ease-in-out;
+            height: 100%;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        .bg-primary-light {
+            background-color: rgba(78, 115, 223, 0.1);
+        }
+        .bg-success-light {
+            background-color: rgba(28, 200, 138, 0.1);
+        }
+        .bg-warning-light {
+            background-color: rgba(246, 194, 62, 0.1);
+        }
+        .bg-info-light {
+            background-color: rgba(54, 185, 204, 0.1);
+        }
+        #student-progress-table_wrapper {
+            margin-top: 1rem;
+        }
+        .dataTables_length, .dataTables_filter {
+            margin-bottom: 1rem;
+        }
+        .dataTables_info, .dataTables_paginate {
+            margin-top: 1rem;
+        }
+    </style>
+</body>
+</html>
